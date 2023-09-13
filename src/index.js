@@ -1,3 +1,4 @@
+const http = require("http");
 const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -39,6 +40,10 @@ app.use(errorHandler);
 
 const port = process.env.PORT;
 
-app.listen(port, () => {
+const server = http.createServer(app);
+
+server.listen(port, () => {
 	console.log("LISTENING ON PORT :", port);
 });
+
+module.exports = server;
