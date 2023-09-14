@@ -6,12 +6,13 @@ const cors = require("cors");
 const config = require("config");
 const fs = require("fs");
 const path = require("path");
+const moment = require("moment");
 
 const routes = require("./routes");
 const errorHandler = require("./utils/errorHandler");
 const session = require("./config/session");
 const proxyConfig = require("./config/proxy");
-const moment = require("moment");
+const socket = require("./config/socket")
 
 const app = express();
 
@@ -44,6 +45,13 @@ const server = http.createServer(app);
 
 server.listen(port, () => {
 	console.log("LISTENING ON PORT :", port);
+});
+
+socket.attach(server, {
+	cors: {
+		origin: "*",
+	},
+	transports: ['websocket']
 });
 
 module.exports = server;

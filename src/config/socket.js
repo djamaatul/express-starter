@@ -2,16 +2,8 @@ const { createAdapter } = require("@socket.io/redis-adapter");
 const socketIo = require('socket.io');
 
 const redisClient = require('./redis');
-const server = require("../index");
 
 const io = socketIo();
-
-io.attach(server, {
-	cors: {
-		origin: "*",
-	},
-	transports: ['websocket']
-});
 
 (async () => {
 	if (!redisClient.isOpen) {
@@ -27,6 +19,7 @@ io.attach(server, {
 })();
 
 io.on('connection', function (socket) {
+	console.log("Some user connected on ID: ", socket.id)
 });
 
 module.exports = io;
