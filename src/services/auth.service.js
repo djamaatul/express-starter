@@ -1,3 +1,3 @@
 exports.login = async () => {
-  return null
+  return {}
 };

@@ -1,22 +1,28 @@
 const service = require("../services/auth.service");
 const schema = require("../schemas/auth.schema");
 
-const validator = require("../utils/validator");
 const handler = require("../utils/handler");
 const ErrorResponse = require("../utils/ErrorResponse");
 
-exports.login = handler(async (req) => {
+exports.login = handler(
+	async function (req) {
+		
+		// req.onError = (error) => {
+		// 	console.log("SOME ERROR", error);
+		// };
 
-	await validator(req.body, schema.login);
+		const data = await service.login(req.body);
 
-	const data = await service.login(req.body);
+		req.session.user = data;
 
-	req.session.user = data
-
-	return {
-		data
-	};
-});
+		return {
+			data
+		};
+	},
+	() => ({
+		body: schema.login
+	})
+);
 
 exports.auth = handler(async (req) => {
 	const session = req.user;

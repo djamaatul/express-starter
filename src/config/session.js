@@ -2,12 +2,12 @@ const RedisStore = require('connect-redis').default;
 const redisClient = require("./redis");
 const session = require("express-session");
 
-const redisStore = new RedisStore({
-	client: redisClient,//default ttl 24hour,
-});
+// const redisStore = new RedisStore({
+// 	client: redisClient,//default ttl 24hour,
+// });
 
 const SESSION_CONFIG = {
-	store: redisStore,
+	// store: redisStore,
 	secret: process.env.JWT_SECRET,
 	saveUninitialized: false,
 	resave: false,

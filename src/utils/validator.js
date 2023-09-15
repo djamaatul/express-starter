@@ -14,15 +14,13 @@ const CustomJoi = Joi.defaults((schema) => {
 });
 
 const validator = async (data, cb) => {
-	try {
-		const { error } = await cb(CustomJoi).validateAsync(data, {
-			abortEarly: false
-		});
+	const { error, ...result } = await cb(CustomJoi).validateAsync(data, {
+		abortEarly: false
+	});
 
-		if (error) throw new ErrorResponse(error.message, 500);
-	} catch (error) {
-		throw error;
-	}
+	if (error) throw new ErrorResponse(error.message, 500);
+
+	return { error, ...result };
 };
 
 module.exports = validator;

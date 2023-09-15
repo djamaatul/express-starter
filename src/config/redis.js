@@ -21,14 +21,14 @@ const redisClient = createClient({
 	.on("ready", () => console.error(`REDIS SERVER CONNNECTED`))
 	.on("error", (err) => console.error("ERROR REDIS. ", err.message));
 
-(async () => {
-	//prevent server stopped
-	try {
-		//initial connection
-		await redisClient.connect();
-	} catch (err) {
-		console.error(new Date().toJSON(), ' : RE/CONNECT TO REDIS SERVER FAILED ', err);
-	}
-})();
+// (async () => {
+// 	//prevent server stopped
+// 	try {
+// 		//initial connection
+// 		await redisClient.connect();
+// 	} catch (err) {
+// 		console.error(new Date().toJSON(), ' : RE/CONNECT TO REDIS SERVER FAILED ', err);
+// 	}
+// })();
 
 module.exports = redisClient;
